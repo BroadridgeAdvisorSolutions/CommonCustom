@@ -131,107 +131,102 @@
 
 <!-- CODE BEING WORKED ON DO NOT USE ... YET -->
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Event Button Change 
-        $('.seminar button').removeAttr('onclick').attr({
-            'data-toggle': "modal",
-            'data-target': "#formModal"
+<script>
+    // Event Button Change 
+    $('.seminar button').removeAttr('onclick').attr({
+        'data-toggle': "modal",
+        'data-target': "#formModal"
+    });
+    // Grab Event Title 
+    $('.seminar button').each(function () {
+        $(this).click(function () {
+            var Etitle = $(this).siblings('h2').html();
+            console.log(Etitle);
+            $('#eventTitle').attr('value', Etitle);
         });
-        // Grab Event Title 
-        $('.seminar button').each(function () {
-            $(this).click(function () {
-                var Etitle = $(this).siblings('h2').html();
-                console.log(Etitle);
-                $('#eventTitle').attr('value', Etitle);
-            });
-        });
-        // Contact Validator
-        $.validator.setDefaults({
-            submitHandler: function (e) {
-                var _f = $('#event-form');
-                if (_f.find('.antispam input').val() != 'not spam') {
-                    // honeypot was populated. don't submit
+    });
+    // Contact Validator
+    $.validator.setDefaults({
+        submitHandler: function (e) {
+            var _f = $('#event-form');
+            if (_f.find('.antispam input').val() != 'not spam') {
+                // honeypot was populated. don't submit
 
-                    return false;
-                } else {
+                return false;
+            } else {
 
-                    // Show Thank You modal
-                    var url = 'form_proc.cfm';
-                    var formData = $('#event-form').serializeArray();
+                // Show Thank You modal
+                var url = 'form_proc.cfm';
+                var formData = $('#event-form').serializeArray();
 
-                    $.post(url, formData).done(function (data) {
-                        console.log('Form submitted');
-                    });
+                $.post(url, formData).done(function (data) {
+                    console.log('Form submitted');
+                });
 
-                    console.log(formData);
+                console.log(formData);
 
-                    // Clear fileds once form is submitted
-                    $('#event-form').closest('form').find('input[type=text], textarea').val('');
-                    $('#event-form').fadeOut();
-                    $('.form-container').empty().hide().html(
-                        '<h3 class="thankYou">Thank you!</h3><p style="text-align: center;">Your submission is complete </p><p><button type="button" id="refresh" class="btn btn-secondary">Close</button></p>'
-                    ).fadeIn('slow');
-                    $('#refresh').click(function () {
-                        location.reload();
-                    });
-                }
+                // Clear fileds once form is submitted
+                $('#event-form').closest('form').find('input[type=text], textarea').val('');
+                $('#event-form').fadeOut();
+                $('.form-container').empty().hide().html(
+                    '<h3 class="thankYou">Thank you!</h3><p style="text-align: center;">Your submission is complete </p><p><button type="button" id="refresh" class="btn btn-secondary">Close</button></p>'
+                ).fadeIn('slow');
             }
-        });
-        $('#event-form').validate({
-            rules: {
-                name: 'required',
-                email: {
-                    required: true,
-                    email: true
-                },
-                emailC: {
-                    required: true,
-                    email: true,
-                    equalTo: '#email'
-                },
-                phone: {
-                    required: true,
-                    phoneUS: true
-                },
-                currentEmployer: 'required',
-                yearsAtCurrentEmployer: 'required',
-                retireDate: 'required',
-                guestOneEmail: {
-                    required: '#guestOneName:filled',
-                    email: true
-                },
-                guestOnePhone: {
-                    required: '#guestOneName:filled',
-                    phoneUS: true
-                },
-                guestTwoEmail: {
-                    required: '#guestTwoName:filled',
-                    email: true
-                },
-                guestTwoPhone: {
-                    required: '#guestTwoName:filled',
-                    phoneUS: true
-                },
-                guestThreeEmail: {
-                    required: '#guestThreeName:filled',
-                    email: true
-                },
-                guestThreePhone: {
-                    required: '#guestThreeName:filled',
-                    phoneUS: true
-                }
+        }
+    });
+    $('#event-form').validate({
+        rules: {
+            name: 'required',
+            email: {
+                required: true,
+                email: true
             },
-            messages: {
-                name: 'Name is Required',
-                email: 'Email Address is Incorrect',
-                emailC: 'Email Must Match',
-                phone: 'Phone Number is Required',
-                currentEmployer: 'Current Employer is Required',
-                yearsAtCurrentEmployer: 'Years working at Current Employer is Required',
-                retireDate: 'Retirement Date is Required',
+            emailC: {
+                required: true,
+                email: true,
+                equalTo: '#email'
+            },
+            phone: {
+                required: true,
+                phoneUS: true
+            },
+            currentEmployer: 'required',
+            yearsAtCurrentEmployer: 'required',
+            retireDate: 'required',
+            guestOneEmail: {
+                required: '#guestOneName:filled',
+                email: true
+            },
+            guestOnePhone: {
+                required: '#guestOneName:filled',
+                phoneUS: true
+            },
+            guestTwoEmail: {
+                required: '#guestTwoName:filled',
+                email: true
+            },
+            guestTwoPhone: {
+                required: '#guestTwoName:filled',
+                phoneUS: true
+            },
+            guestThreeEmail: {
+                required: '#guestThreeName:filled',
+                email: true
+            },
+            guestThreePhone: {
+                required: '#guestThreeName:filled',
+                phoneUS: true
             }
-        });
+        },
+        messages: {
+            name: 'Name is Required',
+            email: 'Email Address is Incorrect',
+            emailC: 'Email Must Match',
+            phone: 'Phone Number is Required',
+            currentEmployer: 'Current Employer is Required',
+            yearsAtCurrentEmployer: 'Years working at Current Employer is Required',
+            retireDate: 'Retirement Date is Required',
+        }
     });
 </script>
 
