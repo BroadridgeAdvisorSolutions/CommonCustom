@@ -1,0 +1,41 @@
+<!-- Script -->
+
+<!-- THIS CODE IS BEING TESTED DO NOT USE .... YET -->
+
+<script>
+    // Open external links in a popup modal notice
+    $(window).on('load', function () {
+
+        $.expr[":"].external = function (a) {
+            var linkhn = a.hostname.split('.').reverse();
+            var linkHref = linkhn[1] + "." + linkhn[0];
+
+            var domainhn = window.location.hostname.split('.').reverse();
+            var domainHref = domainhn[1] + "." + domainhn[0];
+
+            return !a.href.match(/^mailto\:/) && !a.href.match(/^tel\:/) && linkHref !== domainHref;
+        };
+
+        $("a:external").addClass("ext_link");
+        $("a:external").removeAttr("target");
+
+        $(function () {
+            $('a.ext_link').click(function () {
+                var url = null;
+                // open a modal 
+                $('a:external').attr('data-toggle', 'modal');
+                $('a:external').attr('data-target', '#speedbump');
+                //go to link on modal close
+                var url = $(this).attr('href');
+                $('.btn-modal.btn-continue').click(function () {
+                    window.open(url, '_self');
+                    $('.btn-modal.btn-continue').off();
+                });
+                $('.btn-modal.btn-close').click(function () {
+                    $('#speedbump').modal('hide');
+                    $('.btn-modal.btn-close').off();
+                });
+            });
+        });
+    });
+</script>

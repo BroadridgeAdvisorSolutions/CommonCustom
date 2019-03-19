@@ -1,0 +1,26 @@
+<!-- Script -->
+<script>
+    $(document).ready(function () {
+        $('.agent_list_item').each(function () {
+            $(this).prepend('<div class="newcontainer"></div>')
+            var url = $(this).attr('data-agent-url')
+            $(this).find('.newcontainer').load(url + ' #cardInfo .vcard_img ');
+        });
+        $('.agent_list_item').removeAttr('style');
+    });
+</script>
+
+<!-- Styles Needed -->
+<style>
+    .newcontainer {
+        margin-bottom: 10px;
+    }
+
+    ul.agent_list {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>
