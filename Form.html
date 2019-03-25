@@ -1,10 +1,8 @@
 <!-- HTML Template -->
 
-<!-- CODE BEING WORKED ON DO NOT USE ... YET -->
-
 <div class="form-container">
-    <form action="form_proc.cfm" class="form" id="event-form" method="post" novalidate="novalidate" role="form">
-        <input readonly autocomplete="off" name="eventTitle" title="eventTitle" id="eventTitle" type="text" />
+    <form action="form_proc.cfm" class="form" id="form-name" method="post" novalidate="novalidate" role="form">
+        <input readonly autocomplete="off" name="formTitle" title="formTitle" id="formTitle" type="text" />
         <p class="required">
             <span class="required">*</span> is required</p>
         <fieldset>
@@ -93,26 +91,11 @@
                 <input class="form-control" id="guestTwoPhone" name="guestTwoPhone" title="Enter in Second Guests Phone" aria-label="Enter in Guest Ones Phone"
                     type="text" />
             </div>
-            <div class="wrap">
-                <label for="guestThreeName">First &amp; Last Name</label>
-                <input class="form-control" id="guestThreeName" name="guestThreeName" title="Enter in Third Guests Name" aria-label="Enter in Guest Ones Name"
-                    type="text" />
-            </div>
-            <div class="wrap">
-                <label for="guestThreeEmail">Email</label>
-                <input class="form-control" id="guestThreeEmail" name="guestThreeEmail" title="Enter in Third Guests Email" aria-label="Enter in Guest Ones Email"
-                    type="email" />
-            </div>
-            <div class="wrap">
-                <label for="guestThreePhone">Phone</label>
-                <input class="form-control" id="guestThreePhone" name="guestThreePhone" title="Enter in Third Guests Phone" aria-label="Enter in Guest Ones Phone"
-                    type="text" />
-            </div>
         </fieldset>
         <div class="btn-container">
             <p class="antispam">Leave this empty:
                 <input autocomplete="off" name="spam" title="Leave empty:" type="text" value="not spam" />
-                <input autocomplete="off" name="email_subject" type="hidden" value="Subject" />
+                <input autocomplete="off" name="email_subject" type="hidden" value="Subject: Form" />
                 <input autocomplete="off" class="website-url" name="websiteurl" title="Website url" type="text" value="" />
             </p>
             <button id="contact-form-submit" type="submit">Submit</button>
@@ -129,35 +112,18 @@
 
 <!-- Script Needed -->
 
-<!-- CODE BEING WORKED ON DO NOT USE ... YET -->
-
 <script>
-    // Event Button Change 
-    $('.seminar button').removeAttr('onclick').attr({
-        'data-toggle': "modal",
-        'data-target': "#formModal"
-    });
-    // Grab Event Title 
-    $('.seminar button').each(function () {
-        $(this).click(function () {
-            var Etitle = $(this).siblings('h2').html();
-            console.log(Etitle);
-            $('#eventTitle').attr('value', Etitle);
-        });
-    });
     // Contact Validator
     $.validator.setDefaults({
         submitHandler: function (e) {
-            var _f = $('#event-form');
+            var _f = $('#form-name');
             if (_f.find('.antispam input').val() != 'not spam') {
                 // honeypot was populated. don't submit
-
                 return false;
             } else {
 
-                // Show Thank You modal
                 var url = 'form_proc.cfm';
-                var formData = $('#event-form').serializeArray();
+                var formData = $('#form-name').serializeArray();
 
                 $.post(url, formData).done(function (data) {
                     console.log('Form submitted');
@@ -166,15 +132,15 @@
                 console.log(formData);
 
                 // Clear fileds once form is submitted
-                $('#event-form').closest('form').find('input[type=text], textarea').val('');
-                $('#event-form').fadeOut();
+                $('#form-name').closest('form').find('input[type=text], textarea').val('');
+                $('#form-name').fadeOut();
                 $('.form-container').empty().hide().html(
-                    '<h3 class="thankYou">Thank you!</h3><p style="text-align: center;">Your submission is complete </p><p><button type="button" id="refresh" class="btn btn-secondary">Close</button></p>'
+                    '<h3 class="thankYou">Thank you!</h3><p style="text-align: center;">Your submission is complete </p>'
                 ).fadeIn('slow');
             }
         }
     });
-    $('#event-form').validate({
+    $('#form-name').validate({
         rules: {
             name: 'required',
             email: {
@@ -208,14 +174,6 @@
             guestTwoPhone: {
                 required: '#guestTwoName:filled',
                 phoneUS: true
-            },
-            guestThreeEmail: {
-                required: '#guestThreeName:filled',
-                email: true
-            },
-            guestThreePhone: {
-                required: '#guestThreeName:filled',
-                phoneUS: true
             }
         },
         messages: {
@@ -232,38 +190,36 @@
 
 <!-- Styles Needed -->
 
-<!-- CODE BEING WORKED ON DO NOT USE ... YET -->
-
 <style>
-    #event-form input.error {
+    #form-name input.error {
         border-bottom: 0.125rem solid #933 !important;
     }
 
-    #event-form label.error {
+    #form-name label.error {
         color: #933;
     }
 
-    #event-form .wrap {
+    #form-name .wrap {
         margin-bottom: 10px;
     }
 
-    #event-form label {
+    #form-name label {
         display: block;
         margin-bottom: 2px;
         font-size: 14px;
     }
 
-    #event-form input+label {
+    #form-name input+label {
         display: inline-block;
         top: -2px;
         position: relative;
     }
 
-    #event-form .form-control {
+    #form-name .form-control {
         width: 100%;
     }
 
-    #event-form .antispam {
+    #form-name .antispam {
         display: none;
     }
 
@@ -271,22 +227,17 @@
         transition: all 400ms ease;
     }
 
-    .seminars .modal-header {
-        padding: 15px 15px 0px;
-        border: none;
-    }
-
-    .seminars p.required {
+    p.required {
         color: #000;
         float: right;
     }
 
-    .seminars span.required {
+    span.required {
         color: hsl(0, 100%, 40%);
         padding-left: 5px;
     }
 
-    .seminars #event-form input#eventTitle {
+    #form-name input#eventTitle {
         border: none;
         background: transparent;
         padding: 0 0 10px !important;
@@ -295,154 +246,28 @@
         width: calc(100% - 100px);
     }
 
-    .seminars #event-form input#eventTitle:focus,
-    .seminars #event-form input#eventTitle:focus {
+    #form-name input#eventTitle:focus,
+    #form-name input#eventTitle:focus {
         border: none !important;
         outline: none !important;
     }
 
-    .seminars #event-form fieldset {
+    #form-name fieldset {
         margin: 25px 0;
     }
 
-    .seminars #event-form legend {
+    #form-name legend {
         font-family: Arial, Helvetica, sans-serif !important;
         font-weight: 700;
         font-size: 18px;
         margin-bottom: 10px;
     }
 
-    .seminars #event-form #contact-form-submit,
-    .seminars .modal .btn.btn-secondary {
+    #form-name #contact-form-submit {
         font-size: 18px !important;
         color: #ffffff;
         background: #0a2648;
         border-radius: 6px;
         padding: 13px 35px;
-    }
-
-    /* event form above --- */
-
-    .seminars .inlineEdit {
-        width: 100%;
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
-    button.enroll_now {
-        color: #fff !important;
-
-    }
-
-    .blog #content h2.postTitle {
-        font-weight: normal;
-        font-size: 14px;
-    }
-
-    .blog #content h2.postTitle:first-line {
-        font-weight: bold;
-        font-size: 22px;
-    }
-
-    div#content span.postDate {
-        display: none;
-    }
-
-    p.postDate {
-        display: none;
-    }
-
-    .footer-sections-twitter {
-        display: none;
-    }
-
-    body.blog div#content,
-    body.blog div#contentContainer,
-    body.blog div#contentWrapper {
-        padding: 20px;
-    }
-
-    /* index blog */
-
-    #sections3 {
-        text-align: center;
-    }
-
-    .index div.blogPost {
-        clear: none;
-        width: 50%;
-        float: left;
-    }
-
-    .index #content h2.postTitle {
-        font-size: 21px;
-        margin: 24px 0;
-    }
-
-    .index div.postThumbnail {
-        float: none;
-        float: unset;
-        display: block;
-        margin: 0 auto;
-        max-width: 90%;
-        width: 90%;
-    }
-
-    .index div.postThumbnail img {
-        border-radius: 10px;
-        width: 100%;
-    }
-
-    .index div.blogPost div.postSnippet {
-        border: 1px solid #e5e5e5;
-        clear: both;
-        font-size: 12px;
-        padding: 15px 25px;
-    }
-
-    .index div.postBody.withImage {
-        max-width: 90%;
-        padding-left: 0;
-    }
-
-    .index div#content .postBody a.jumpLink {
-        display: inline-block;
-        padding: 6px 12px;
-        margin-bottom: 0;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.42857143;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-image: none;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        background-color: #fff;
-        border-color: #ccc;
-        color: #747475;
-    }
-
-    .index div#content .postBody a.jumpLink:hover,
-    .index div#content .postBody a.jumpLink:focus {
-        background-color: #e6e6e6;
-        border-color: #adadad;
-    }
-
-
-    @media only screen and (max-width: 705px) {
-        .index div.blogPost {
-            width: 100%;
-        }
-        .index #content .postThumbnail img {
-            max-width: 400px;
-        }
     }
 </style>
