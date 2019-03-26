@@ -24,3 +24,13 @@ function getrest() {
     }, 'html');
 }
 setTimeout(getrest, 700);
+
+// Custom Pages That Need Content Container Wrapped
+$('#masthead').each(function () {
+    $(this).nextUntil('.footer-border').wrapAll('<section id="content"><div class="content-wrap"><div class="container">');
+})
+
+// Disable Parent Link on DropDown
+$('.about_us>a').on('click', function(e){
+    e.preventDefault();
+ } );

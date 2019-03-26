@@ -24,7 +24,7 @@
                 <label for="emailC">Confirm Email Address
                     <span class="required">*</span>
                 </label>
-                <input class="form-control" id="emailC" name="emailC" title="Confirm your Email Address" aria-label="Confirm your Email Address"
+                <input class="form-control" id="emailConfirm" name="emailConfirm" title="Confirm your Email Address" aria-label="Confirm your Email Address"
                     type="email" required />
             </div>
             <div class="wrap">
@@ -147,7 +147,7 @@
                 required: true,
                 email: true
             },
-            emailC: {
+            emailConfirm: {
                 required: true,
                 email: true,
                 equalTo: '#email'
