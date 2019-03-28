@@ -31,6 +31,51 @@ $('#masthead').each(function () {
 })
 
 // Disable Parent Link on DropDown
-$('.about_us>a').on('click', function(e){
+$('.about_us>a').on('click', function (e) {
     e.preventDefault();
- } );
+});
+
+//add this of adding the team and modals to a custom page
+$('.index .agent_list_item').removeAttr("style");
+
+if ($('.profile-button').length >= 1) {
+    $('.profile-button').on('click touchend', function (element) {
+        var $this = $(this).closest('[data-agent-url]'),
+            URL = $this.attr('data-agent-url'),
+            agentEcard;
+
+        var combinedURL = function () {
+            var isUAT = location.pathname.indexOf('/uat/') >= 1;
+            var isPreview = location.pathname.indexOf('preview') >= 1;
+
+            if (isPreview) {
+                return '//' + location.hostname + '/preview/' + URL;
+            } else if (isUAT) {
+                return '//' + location.hostname + '/uat/' + URL;
+            } else {
+                return '//' + location.hostname + '/' + URL;
+            }
+        }
+
+        function populateModal() {
+            $('.modal-body').html(agentEcard);
+            $('.view-full-page').attr('href', combinedURL())
+            $('#agentModal').modal('show');
+        };
+
+        if (!($this.data().hasOwnProperty('bio'))) {
+            $.ajax({
+                    url: combinedURL(),
+                    method: 'GET',
+                    dataType: 'html'
+                })
+                .done(function (data) {
+                    agentEcard = $(data).find('#hcard').html();
+                    populateModal();
+                });
+        } else {
+            agentEcard = $this.data('bio');
+            populateModal();
+        }
+    });
+}
