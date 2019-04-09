@@ -35,9 +35,7 @@ $('.about_us>a').on('click', function (e) {
     e.preventDefault();
 });
 
-//add this of adding the team and modals to a custom page
-$('.index .agent_list_item').removeAttr("style");
-
+//add this of adding the team and modals to a custom page with .load
 if ($('.profile-button').length >= 1) {
     $('.profile-button').on('click touchend', function (element) {
         var $this = $(this).closest('[data-agent-url]'),

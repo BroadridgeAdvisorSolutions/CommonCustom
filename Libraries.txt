@@ -1,0 +1,30 @@
+JS: /files/custom/libraries/js/
+jquery.min.js
+jquery.validate.min.js
+swiper.jquery.min.js
+swiper.min.js
+bootstrap.min.js
+
+CSS:  /files/custom/libraries/css/
+bootstrap.min.css
+swiper.min.css
+
+ WF: /files/custom/wfa/
+WFAfooter.css
+
+Fonts: /files/custom/libraries/fonts/
+glyphicons-halflings-reqular.eot,.svg,.ttf,.woff,.woff2
+museo-sans-100.otf
+museo-sans-100-webfont.woff,.woff2
+museo-sans-100-italic-webfont.woff,.woff2
+museo-sans-300.otf
+museo-sans-300-webfont.woff,.woff2
+museo-sans-300-italic-webfont.woff,.woff2
+museo-sans-500.otf
+museo-sans-500-webfont.woff,.woff2,.otf
+museo-sans-500-italic-webfont.woff,.woff2
+museo-sans-700.otf
+museo-sans-700-webfont.woff,.woff2
+museo-sans-700-italic-webfont.woff,.woff2
+
+Sorento: /files/custom/semi-custom/sorento/
