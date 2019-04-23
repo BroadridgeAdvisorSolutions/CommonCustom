@@ -140,6 +140,12 @@
             }
         }
     });
+
+    // Equal to static Value
+    $.validator.addMethod("equalStatic", function (value, element, param) {
+        return this.optional(element) || value === param;
+    }, "Message when wrong");
+
     $('#form-name').validate({
         rules: {
             name: 'required',

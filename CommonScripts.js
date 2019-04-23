@@ -77,3 +77,8 @@ if ($('.profile-button').length >= 1) {
         }
     });
 }
+
+//Stop youtube video when modal is closed *Bootstrap*
+$("#video1").on('hidden.bs.modal', function (e) {
+    $("#video1 iframe").attr("src", $("#video1 iframe").attr("src"));
+});
